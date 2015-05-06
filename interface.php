@@ -17,8 +17,8 @@
     <input type = "number" name = "length">
     <input type = "submit">
   </form>
-  <?php
 
+  <?php
   $dbhost = 'oniddb.cws.oregonstate.edu';
   $dbname = 'fitzsimk-db';
   $dbuser = 'fitzsimk-db';
@@ -33,8 +33,36 @@
   echo $reqName = $_GET['name'];
   echo $reqCat = $_GET['category'];
   echo  $reqLen = $_GET['length'];
-
-
   ?>
+  <section>
+
+<?php
+echo "<table>";
+
+for($i = 0; $i < 2; $i++){
+  echo "<tr>";
+  for($j = 0; $j < 5; $j++){
+
+    if($i == 0 && $j == 0){  echo "<td></td>";}
+    else if($i == 0 && $j == 1){  echo "<td>Title</td>";}
+    else if($i == 0 && $j == 2){  echo "<td>Category</td>";}
+    else if($i == 0 && $j == 3){  echo "<td>Length</td>";}
+    else{
+        if($j == 0){  echo "<td><input type='button'></input></td>"; }
+        else if($j == 1){  echo "<td>" . $reqName . "</td>"; }
+        else if($j == 2){  echo "<td>" . $reqCat . "</td>"; }
+        else if($j == 3){  echo "<td>" . $reqLen . "</td>"; }
+    }
+
+  }
+  echo "</tr>";
+}
+echo"</table>";
+
+
+?>
+
+
+  </section>
 </body>
 </html>
