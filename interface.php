@@ -1,13 +1,24 @@
 <?php
-include 'interface.css';
-//echo $mysqli->host_info . "\n";
-?>
+$dbhost = 'oniddb.cws.oregonstate.edu';
+$dbname = 'fitzsimk-db';
+$dbuser = 'fitzsimk-db';
+$dbpass = 'j7ls3CXDsvxQUO71';
 
+$mysqli = new mysqli($dbhost, $dbname, $dbpass, $dbuser);
+if (!$mysqli||$mysqli->connect_errno) {
+   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+?>
 
 <!-- started at 12:38 -->
 <!DOCTYPE html>
 <html>
 <head>
+  <?php
+  $cssFile = "interface.css";
+  echo "<link rel='stylesheet' href='" . $cssFile . "'>";
+  //echo $mysqli->host_info . "\n";
+  ?>
 </head>
 <body>
   <section id = "isForm">
@@ -18,17 +29,7 @@ include 'interface.css';
     <input type = "submit">
   </form>
 
-  <?php
-  $dbhost = 'oniddb.cws.oregonstate.edu';
-  $dbname = 'fitzsimk-db';
-  $dbuser = 'fitzsimk-db';
-  $dbpass = 'j7ls3CXDsvxQUO71';
 
-  $mysqli = new mysqli($dbhost, $dbname, $dbpass, $dbuser);
-  if (!$mysqli||$mysqli->connect_errno) {
-     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-  }
-  ?>
 </section>
 <section id="isTable">
 
