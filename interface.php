@@ -11,7 +11,7 @@
 <html>
 <head></head>
 <body>
-  <form id="movieParams" method="GET">
+  <form id="addVideo" method="GET">
     <input type = "text" name = "name">
     <input type = "text" name = "category">
     <input type = "number" name = "length">
@@ -30,9 +30,9 @@
   }
 
 
-  // $reqName = $_GET['name'];
-  // $reqCat = $_GET['category'];
-  // $reqLen = $_GET['length'];
+  echo $reqName = $_GET['name'];
+  echo $reqCat = $_GET['category'];
+  echo  $reqLen = $_GET['length'];
 
 
   ?>
