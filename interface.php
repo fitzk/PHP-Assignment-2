@@ -16,7 +16,7 @@ if (!$mysqli||$mysqli->connect_errno) {
 <head>
   <?php
   $cssFile = "interface.css";
-  echo "<link rel='stylesheet' href='" . $cssFile . "'>";
+  echo "<link rel='stylesheet' href='" . $cssFile . "'></link>";
   //echo $mysqli->host_info . "\n";
   ?>
 </head>
