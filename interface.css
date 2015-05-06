@@ -1,5 +1,25 @@
 body {
 
-  background-color: #66FF66;
+
+
+}
+
+
+#isTable {
+
+  background-color: 0x66FF66;
+}
+
+#isForm {
+
+  background-color: 0x66FF66;
+}
+
+table tr td {
+
+  border-style: solid;
+  border-width: 5px;
+  padding: auto;
+  margins: auto;
 
 }

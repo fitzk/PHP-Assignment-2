@@ -11,6 +11,7 @@
 <html>
 <head></head>
 <body>
+  <section id = "isForm">
   <form id="addVideo" method="GET">
     <input type = "text" name = "name">
     <input type = "text" name = "category">
@@ -28,15 +29,15 @@
   if (!$mysqli||$mysqli->connect_errno) {
      echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
   }
-
-
-  echo $reqName = $_GET['name'];
-  echo $reqCat = $_GET['category'];
-  echo  $reqLen = $_GET['length'];
   ?>
-  <section>
+</section>
+<section id="isTable">
 
 <?php
+
+  $reqName = $_GET['name'];
+  $reqCat = $_GET['category'];
+  $reqLen = $_GET['length'];
 echo "<table>";
 
 for($i = 0; $i < 2; $i++){
