@@ -9,7 +9,9 @@
 <!-- started at 12:38 -->
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+  <script src="interface.js"></script>
+</head>
 <body>
   <section id = "isForm">
   <form id="addVideo" method="GET">
