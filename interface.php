@@ -14,13 +14,13 @@ if (!$mysqli||$mysqli->connect_errno) {
 <!DOCTYPE html>
 <html>
 <head>
+</head>
+<body>
   <?php
   $cssFile = "interface.css";
   echo "<link rel='stylesheet' href='" . $cssFile . "'></link>";
   //echo $mysqli->host_info . "\n";
   ?>
-</head>
-<body>
   <section id = "isForm">
   <form id="addVideo" method="GET">
     Movie Name <input type = "text" name = "name">
