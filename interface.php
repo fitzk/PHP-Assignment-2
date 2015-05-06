@@ -15,9 +15,9 @@
 <body>
   <section id = "isForm">
   <form id="addVideo" method="GET">
-    <input type = "text" name = "name">
-    <input type = "text" name = "category">
-    <input type = "number" name = "length">
+    Movie Name <input type = "text" name = "name">
+    Category <input type = "text" name = "category">
+    Length <input type = "number" name = "length">
     <input type = "submit">
   </form>
 
