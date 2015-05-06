@@ -1,5 +1,5 @@
 <?php
-echo file_get_contents('interface.css');
+include 'interface.css';
 //echo $mysqli->host_info . "\n";
 ?>
 
