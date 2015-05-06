@@ -1,4 +1,5 @@
 <?php
+echo file_get_contents('interface.css');
 //echo $mysqli->host_info . "\n";
 ?>
 
@@ -7,7 +8,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="interface.css">
 </head>
 <body>
   <section id = "isForm">
