@@ -1,7 +1,4 @@
 <?php
-
-
-
 //echo $mysqli->host_info . "\n";
 ?>
 
@@ -10,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="interface.js"></script>
+  <link rel="stylesheet" href="interface.css">
 </head>
 <body>
   <section id = "isForm">
