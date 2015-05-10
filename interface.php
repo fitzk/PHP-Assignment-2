@@ -1,71 +1,68 @@
 <?php
-$dbhost = 'oniddb.cws.oregonstate.edu';
-$dbname = 'fitzsimk-db';
-$dbuser = 'fitzsimk-db';
-$dbpass = 'j7ls3CXDsvxQUO71';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require 'main.php';
 
-$mysqli = new mysqli($dbhost, $dbname, $dbpass, $dbuser);
-if (!$mysqli||$mysqli->connect_errno) {
-   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
+$mysqli = connectToServer();
+createTable($mysqli);
+$mysqli->close();
 ?>
-
 <!-- started at 12:38 -->
 <!DOCTYPE html>
 <html>
 <head>
 </head>
+<header>
+<section id = "isForm">
+<?php 
+	displayAddForm();
+	dropDownMenu();
+$length = 0;
+/* if ($_SERVER['REQUEST_METHOD'] == "GET"){
+	
+	displayAddForm();
+	dropDownMenu();
 
-<body>
-<link rel="stylesheet" href="interface.css" type="text/css"></link>
-<?php
-  $cssFile = "interface.css";
-  echo "<link rel='stylesheet' href='" . $cssFile . "'></link>";
-  //echo $mysqli->host_info . "\n";
-  ?>
-  <section id = "isForm">
-  <form id="addVideo" method="GET">
-    Movie Name <input type = "text" name = "name">
-    Category <input type = "text" name = "category">
-    Length <input type = "number" name = "length">
-    <input type = "submit">
-  </form>
-
-
-</section>
-<section id="isTable">
-
-<?php
-
-  $reqName = $_GET['name'];
-  $reqCat = $_GET['category'];
-  $reqLen = $_GET['length'];
-echo "<table>";
-
-for($i = 0; $i < 2; $i++){
-  echo "<tr>";
-  for($j = 0; $j < 5; $j++){
-
-    if($i == 0 && $j == 0){  echo "<td></td>";}
-    else if($i == 0 && $j == 1){  echo "<td>Title</td>";}
-    else if($i == 0 && $j == 2){  echo "<td>Category</td>";}
-    else if($i == 0 && $j == 3){  echo "<td>Length</td>";}
-    else{
-        if($j == 0){  echo "<td><input type='button'></input></td>"; }
-        else if($j == 1){  echo "<td>" . $reqName . "</td>"; }
-        else if($j == 2){  echo "<td>" . $reqCat . "</td>"; }
-        else if($j == 3){  echo "<td>" . $reqLen . "</td>"; }
-    }
-
-  }
-  echo "</tr>";
+} */
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+	if(isset($_POST["addBtn"])){
+		addFormInfo();
+	}
 }
-echo"</table>";
-
-
 ?>
+</section>
+
+</header>
+<body>
+<main>
+ <section id="isTable">
+<?php 
+
+$input = NULL;
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+	if(isset($_POST["selected"])){
+		$input=$_POST["selected"];
+	}
+}
+
+if($_SERVER['REQUEST_METHOD'] == "UPDATE"){
+	
+	if(isset($_POST["rentBtn"])){
+		if($_POST["rentStat"] == 'TRUE'){
+			updateDB($_POST["rentBtn"],'FALSE');
+		}else if ($_POST["rentStat"] == 'TRUE'){
+		updateDB($_POST["rentBtn"],'FALSE');
+		}
+	}
+}
+ genTable($input); 
+ 
+ 
+ ?>
 
 
   </section>
+  </main>
 </body>
 </html>

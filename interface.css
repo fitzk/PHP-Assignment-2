@@ -1,23 +1,75 @@
-body {
 
+header {
+	margin: 10px;
+	width: 90%;
+	height: 50px;
+	padding: 10px;
+	background-color: #E0E0E0;
 }
-
-
-#isTable {
-
-  background-color: 0x66FF66;
+body {
+	margin: 10px;
+	width: 100%;
+	font-family: Tahoma, Geneva, sans-serif;
+	background-color: #d2b48c;
 }
 
 #isForm {
-
-  background-color: 0x66FF66;
+  padding: auto;
+  width: 90%;
+  margin: 10px;
+  height: auto;
 }
 
-table tr td {
+#addVideo{
+	float:left;
+}
+main{
+	margin: 10px;
+	padding: 10px;
+}
+#dropdown {
+	float:right;
+}
 
+form{
+	padding: 5px;
+	margin: 10px;
+}
+
+#isTable {
+
+  background-color: #787878;
+  width: 50%;
+  margin: 10px;
+  height: auto;
+  float: center;
+ padding: 20px;
+}
+
+button {
+	background-color: #787900;
+	position: center;
+	width: 70px;
+	height: 25px;
+
+}
+
+tr, td {
+
+  background-color: #E0E0E0;
   border-style: solid;
-  border-width: 5px;
-  padding: auto;
-  margins: auto;
+  border-width: 2px;
+  padding: 5px;
+  margin: auto;
+  border-collapse: collapse;
 
+}
+
+table {
+	margin: 10px;
+	float: center;
+	width: 90%;
+	padding: 5px;
+	position: center;
+	border-collapse: collapse;
 }

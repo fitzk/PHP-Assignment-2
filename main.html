@@ -1,0 +1,26 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$dbhost = 'oniddb.cws.oregonstate.edu';
+$dbname = 'fitzsimk-db';
+$dbuser = 'fitzsimk-db';
+$dbpass = 'j7ls3CXDsvxQUO71';
+
+$mysqli = mysqli_connect($dbhost, $dbname, $dbpass, $dbuser);
+if (!$mysqli||$mysqli->connect_errno) {
+   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+
+if (!$mysqli->query("DROP TABLE IF EXISTS Movies") || !$mysqli->query("CREATE TABLE Movies(id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+category VARCHAR(255) NOT NULL,
+length INT(10) UNSIGNED,
+rented TINYINT(1) DEFAULT 1)")) {
+    echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+}
+  /* Non-prepared statement */
+
+
+?>

@@ -23,9 +23,11 @@ Interface Requirements
 ----------------------
 The interface should have the following pieces:
   - Add video
-    - There should be text fields for the name, category and length.
+    X- There should be text fields for the name, category and length.
     - There should be a button for adding a video
-      - When the button is clicked it should attempt to add the video to the list of videos. If there are any invalid values it should say what value was invalid in user readable language. It should not output the standard MySQL or PHP error message.
+      - When the button is clicked it should attempt to add the video to the list of videos. If there are any invalid 
+	  values it should say what value was invalid in user readable language.
+	  It should not output the standard MySQL or PHP error message.
   - There should be a table of videos that list the name, category, length and the words "checked out" or "available".
     - Each row should have a "Delete" button.
       - When clicked, this should delete that video from the table.
