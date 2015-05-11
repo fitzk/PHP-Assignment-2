@@ -1,8 +1,8 @@
 <?php
   $cssFile = "interface.css";
   echo "<link rel='stylesheet' href='" . $cssFile . "'></link>";
-  
-  
+
+
 function connectToServer(){
 	$dbhost = 'oniddb.cws.oregonstate.edu';
 	$dbname = 'fitzsimk-db';
@@ -32,7 +32,7 @@ function genTable($input){
 	if($input != NULL){
 		$query ="SELECT id, name,category,length, RENTED FROM Movies WHERE category = '" . $input . "' ORDER by ID";
 	}
-	echo "Query: ". $query;
+//	echo "Query: ". $query;
 
 	$result = $conn->query($query);
 
@@ -50,37 +50,66 @@ function genTable($input){
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
 			echo '<tr>';
-			echo "<td>" . $row["name"]."</td>";
+			echo "<td class = thead>" . $row["name"]."</td>";
 			echo "<td>" . $row["category"]."</td>";
 			echo "<td>" . $row["length"]."min </td>";
-			 if($row["RENTED"] == TRUE){
-				echo "<form method='UPDATE'>";
+		echo "<form method='GET'>";			
+			if($row["RENTED"] == TRUE){
 				echo "<td> checked out </td>";
 				echo "<td>";
-				echo "<input type='hidden' name='rentStat' value='".$row["RENTED"]."'>";
-				echo "<button type ='button' name='rentBtn' value='".$row["id"]."'> return </button>";
+				echo "<input type='hidden' name='rentStat' value='".$row["RENTED"]."'></input>";
+				echo "<input type='hidden' name='rentId' value='".$row["id"]."'></input>";				
+				echo "<input type ='submit' class = 'btn' name='submit' action = 'interface.php' value='return'></input>";
 				echo "</td>";
 				echo "</form>";
-			}else{
-				echo "<form method='UPDATE'>";
+			}elseif($row["RENTED"] == FALSE){
 				echo "<td> avaliable </td>";
 				echo "<td>";
-				echo "<input type='hidden' name='rentStat' value='".$row["RENTED"]."'>";
-				echo "<button type ='button' name='rentBtn' value='".$row["id"]."'> rent </button>";
+				echo "<input type='hidden' name='rentStat' value='".$row["RENTED"]."'></input>";
+				echo "<input type='hidden' name='rentId' value='".$row["id"]."'></input>";				
+				echo "<input type ='submit' class = 'btn' name='submit' action = 'interface.php'  value='rent'></input>";
 				echo "</td>";
 				echo "</form>";
 			} 
 			echo "<td>";
-			echo "<button type ='button'> remove </button>";
+			echo "<form method = 'GET'>";
+			echo "<input type='hidden' name='rentId' value='".$row["id"]."'></input>";	
+			echo "<input type ='submit' class = 'btn' name='remove' action = 'interface.php'  value='remove'></input>";
+			echo "</form>";
 			echo "</td>";
 			echo "</tr>";
 		}
 	} else {
 		echo "0 results";
 	}
-	$conn->close();
+	
 	echo "</table>";
+	if($result->num_rows > 0){
+	echo "<form method = 'GET'>";
+	echo "<input type='hidden' name='rentId' value='".$row["id"]."'></input>";	
+	echo "<input type ='submit' class = 'btn' name='all' action = 'interface.php'  value='Remove All'></input>";
+	echo "</form>";
+	}
+	$conn->close();
+}
+function deleteAll(){
+	
+	$conn = connectToServer();
+	$query = "SELECT ID FROM Movies ORDER by ID";
 
+//	$conn->close();
+//	echo "Query: ". $query;
+
+	$result = $conn->query($query);
+	
+	if (0 < $result->num_rows){
+		while($row = $result->fetch_assoc()){	
+			//echo $row["ID"];
+			remove($row["ID"]);
+		}
+	}if($result->num_rows == 0){
+		$conn->close();
+	}
 }
 function dropDownMenu(){
 	$conn = connectToServer();
@@ -89,22 +118,45 @@ function dropDownMenu(){
 	echo "<form name= 'dropdown' method = 'POST' >";
 	echo "<select name='selected'>";
 	$idNum = 0;
+	echo "<option value = NULL >ALL MOVIES</option>";
 	while($row = $result->fetch_array()) {
 		echo "<option value='" . $row[0] . "' id = '" . $idNum . "'>" . $row[0] . "</option>";
 		$idNum++;
 	}
 	echo "</select>";
-	echo "<input type = 'submit' value = 'submit'></input>";
+	echo "<input type = 'submit' class='btn' value = 'filter'></input>";
 	echo "</form>";
+}
+
+
+function remove($id){
+	
+	$conn = connectToServer();
+	if($conn){
+
+		if (!($stmt = $conn->prepare("DELETE FROM Movies WHERE id = ?" ))) {
+			echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		if (!$stmt->bind_param("i",$id)) {
+				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+			}
+		if (!$stmt->execute()) {
+				echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+			} 
+		$conn->close();
+	}
+	else{
+		echo "connection failed";
+	} 
 }
 
 
 function displayAddForm(){
 	  echo "<form id='addVideo' method='POST'>";
-	  echo  "Movie <input type = 'text' name = 'name'>";
-	  echo "category <input type = 'text' name = 'category'>";
-	  echo  "Length <input type = 'number' name = 'length'>";
-	  echo  "<input type = 'submit' name='addBtn' class = 'button' action = 'interface.php' value='select'>";
+	  echo  " Movie <input type = 'text' name = 'name'>";
+	  echo " Category <input type = 'text' name = 'category'>";
+	  echo  " Length <input type = 'number' name = 'length'>";
+	  echo  "<input type = 'submit' name='addBtn' class = 'btn' action = 'interface.php' value='add'>";
 	  echo "</form>";
 	}
 
@@ -124,14 +176,36 @@ function addFormInfo(){
 			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 		} 
 }
-
+//$ghht;
 function updateDB($id,$bool){
-	
+
 	$conn = connectToServer();
-	$query = "UPDATE Movies set RENTED = '".$bool."' WHERE id ='".$id."'";
-	$result = $conn->query($query);
-	
-	
-}
+	if($conn){
+	if($bool == 1){
+		if (!($stmt = $conn->prepare("UPDATE Movies SET RENTED = 0 WHERE id = ?" ))) {
+			echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+		}
+	}else{
+		if (!($stmt = $conn->prepare("UPDATE Movies SET RENTED = 1 WHERE id = ?" ))) {
+			echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+		}
+	}
+
+	if (!$stmt->bind_param("i",$id)) {
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+	if (!$stmt->execute()) {
+			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+		} 
+	$conn->close();
+	}
+	else{
+		echo "connection failed";
+	} 
+
+
+//	mysql_select_db('test_db');
+
+}                                                     
 ?>
 <!-- started at 12:38 -->
